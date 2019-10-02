@@ -12,7 +12,7 @@ public class mainCodeChallenge {
 	static String host = "localhost";
 	static String activation = "\"ACTIVATION\"";
 	static int PORT = 0;
-	static int activationcounter = 1;
+	//static int activationcounter = 1;
 	
 	//This is the CLIENT side
 	public static void main(String[] args) {
@@ -47,10 +47,10 @@ public class mainCodeChallenge {
                         OutputStreamWriter osw = new OutputStreamWriter(os);
                         BufferedWriter bw = new BufferedWriter(osw);    
                         
-                        bw.write(activationcounter + " Activation Classified" /*+ message */+ "\n");
+                        bw.write("Activation Classified" /*+ message */+ "\n");
                         bw.flush();
                         //System.out.println("Message sent to the server : "+ message);
-                        activationcounter++;
+                        //activationcounter++;
                 	}
                 	
                 } catch(Exception e) {
