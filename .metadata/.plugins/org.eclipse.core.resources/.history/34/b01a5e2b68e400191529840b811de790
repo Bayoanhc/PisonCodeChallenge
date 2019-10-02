@@ -1,0 +1,60 @@
+package main;
+import java.io.*;
+import java.net.*;
+//import com.pison.coding.challenge.*;
+
+
+
+public class mainCodeChallenge {
+	
+	final static int PORT = 52044;
+	
+	//This is the CLIENT side
+	public static void main(String[] args) throws UnknownHostException {
+		
+		/*
+		InetAddress address = InetAddress.getByName("0.0.0.0");
+		
+		byte[] buf = new byte[256];
+		
+		try (MulticastSocket clientSocket = new MulticastSocket(PORT)) {
+		
+			clientSocket.joinGroup(address);
+			
+			while(true) {
+				DatagramPacket msgPacket = new DatagramPacket(buf, buf.length);
+				clientSocket.receive(msgPacket);
+				
+				String msg = new String(buf, 0, buf.length);
+				System.out.println("Socket receive msg" + msg);
+			}
+		}
+		catch (IOException ex) {
+			ex.printStackTrace();
+		}
+		*/
+
+		
+		try {
+
+			Socket clientServer = new Socket("0.0.0.0", 52142);
+			System.out.println("Connected");
+			
+			PrintWriter pr = new PrintWriter(clientServer.getOutputStream());
+			pr.println("Im here");
+			pr.flush();
+			
+		}
+		catch(UnknownHostException e) {
+			System.out.println("Host not found: " + e.getMessage());
+		}
+		catch(IOException ioe) {
+			System.out.println("I/O Error: " + ioe.getMessage());
+		}
+		
+
+		
+		
+	}
+
+}

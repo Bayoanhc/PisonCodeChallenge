@@ -1,0 +1,99 @@
+package main;
+import java.io.*;
+import java.net.*;
+import com.google.gson.*;
+
+
+
+public class mainCodeChallenge {
+	
+	final static int PORT = 52044;
+	
+	//This is the CLIENT side
+	public static void main(String[] args) throws UnknownHostException {
+		
+		/*
+		InetAddress address = InetAddress.getByName("0.0.0.0");
+		
+		byte[] buf = new byte[256];
+		
+		try (MulticastSocket clientSocket = new MulticastSocket(PORT)) {
+		
+			clientSocket.joinGroup(address);
+			
+			while(true) {
+				DatagramPacket msgPacket = new DatagramPacket(buf, buf.length);
+				clientSocket.receive(msgPacket);
+				
+				String msg = new String(buf, 0, buf.length);
+				System.out.println("Socket receive msg" + msg);
+			}
+		}
+		catch (IOException ex) {
+			ex.printStackTrace();
+		}
+		*/
+		//JsonParser parser = new JsonParser();
+		
+		try {
+
+			Socket clientServer = new Socket("0.0.0.0", 58386);
+			System.out.println("Connected");
+			
+			//FileReader reader = new FileReader();
+			
+			InputStream is = clientServer.getInputStream();
+            InputStreamReader isr = new InputStreamReader(is);
+            BufferedReader br = new BufferedReader(isr);
+            //String message = br.readLine();
+            while(br.readLine() != null) {
+            	String message = br.readLine();
+            	System.out.println("Message received from the server : " + message);
+            }
+            
+            
+            
+            
+            
+            
+            
+            //Send the message to the server
+            OutputStream os = clientServer.getOutputStream();
+            OutputStreamWriter osw = new OutputStreamWriter(os);
+            BufferedWriter bw = new BufferedWriter(osw);
+ 
+            String sendMessage = br.readLine();
+            bw.write(sendMessage);
+            bw.flush();
+            System.out.println("Message sent to the server : "+ sendMessage);
+            
+            
+            
+            
+            
+            
+            
+            //System.out.println("Message received from the server : " + message);
+			
+			//OutputStream output = clientServer.getOutputStream();
+			//PrintWriter writer = new PrintWriter(output, true);
+			//writer.println("This is a message sent to the server");
+			
+			//PrintWriter pr = new PrintWriter(clientServer.getOutputStream());
+			//pr.println("Im here");
+			//pr.flush();
+			
+		}
+		catch(UnknownHostException e) {
+			System.out.println("Host not found: " + e.getMessage());
+		}
+		catch(IOException ioe) {
+			System.out.println("I/O Error: " + ioe.getMessage());
+		}
+		
+
+		
+		
+	}
+
+}

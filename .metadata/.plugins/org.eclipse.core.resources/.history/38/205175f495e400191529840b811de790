@@ -1,0 +1,79 @@
+package main;
+import java.io.*;
+import java.net.*;
+import com.google.gson.*;
+
+
+
+public class mainCodeChallenge {
+	
+	static Socket clientServer;
+	static String host = "localhost";
+	static final int PORT = 52044;
+	
+	//This is the CLIENT side
+	public static void main(String[] args) throws UnknownHostException {
+			
+		try {
+
+			InetAddress address = InetAddress.getByName(host);
+			clientServer = new Socket(address, PORT);
+			
+			//Socket clientServer = new Socket("0.0.0.0", 58466);
+			System.out.println("Connected");
+			
+			//FileReader reader = new FileReader();
+			
+			InputStream is = clientServer.getInputStream();
+            InputStreamReader isr = new InputStreamReader(is);
+            BufferedReader br = new BufferedReader(isr);
+            //String message = br.readLine();
+            //while(br.readLine() != null) {
+            	String message = br.readLine();
+            	System.out.println("Message received from the server : " + message);
+            //}
+            
+             
+            
+            //Send the message to the server
+            OutputStream os = clientServer.getOutputStream();
+            OutputStreamWriter osw = new OutputStreamWriter(os);
+            BufferedWriter bw = new BufferedWriter(osw);
+ 
+            //String sendMessage = br.readLine();
+            bw.write(message);
+            bw.flush();
+            System.out.println("Message sent to the server : "+ message);
+            
+            
+            //System.out.println("Message received from the server : " + message);
+			
+			//OutputStream output = clientServer.getOutputStream();
+			//PrintWriter writer = new PrintWriter(output, true);
+			//writer.println("This is a message sent to the server");
+			
+			//PrintWriter pr = new PrintWriter(clientServer.getOutputStream());
+			//pr.println("Im here");
+			//pr.flush();
+			
+		}
+		catch(UnknownHostException e) {
+			System.out.println("Host not found: " + e.getMessage());
+		}
+		catch(IOException ioe) {
+			System.out.println("I/O Error: " + ioe.getMessage());
+		}
+		finally {
+			try {
+				//clientServer.clo
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		
+		
+	}
+
+}

@@ -1,0 +1,41 @@
+package main;
+import java.io.*;
+import java.net.*;
+//import com.pison.coding.challenge.*;
+
+
+
+public class mainCodeChallenge {
+	
+	//This is the CLIENT side
+	public static void main(String[] args) {
+		
+		In
+		
+		
+		
+		
+		
+		try {
+
+			Socket clientServer = new Socket("0.0.0.0", 63723);
+			System.out.println("Connected");
+			
+			/*PrintWriter pr = new PrintWriter(clientServer.getOutputStream());
+			pr.println("Im here");
+			pr.flush();*/
+			
+		}
+		catch(UnknownHostException e) {
+			System.out.println("Host not found: " + e.getMessage());
+		}
+		catch(IOException ioe) {
+			System.out.println("I/O Error: " + ioe.getMessage());
+		}
+		
+
+		
+		
+	}
+
+}
