@@ -11,7 +11,6 @@ public class mainCodeChallenge {
 	
 	static Socket clientServer;
 	static int PORT = 0;
-	static String activation = "\"ACTIVATION\"";
 	
 	//This is the CLIENT side
 	public static void main(String[] args) throws InterruptedException {
@@ -42,14 +41,14 @@ public class mainCodeChallenge {
                 JsonObject jsonObj = (JsonObject) obj;
                 JsonElement label = jsonObj.get("label");
                 	
-                if(label.toString().equals(activation)) {
+                if(label.toString().equals("\"ACTIVATION\"")) {
                 	
                 	//Sending the message to the server
                 	OutputStream os = clientServer.getOutputStream();
                 	OutputStreamWriter osw = new OutputStreamWriter(os);
                 	BufferedWriter bw = new BufferedWriter(osw);    
                        
-                	bw.write("Activation Classified" /*+ message */+ "\n");
+                	bw.write("Activation Classified" + "\n");
                 	bw.flush();
                 }
             }
