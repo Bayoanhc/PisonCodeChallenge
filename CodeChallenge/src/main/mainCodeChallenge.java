@@ -17,6 +17,7 @@ public class mainCodeChallenge {
 			
 		try {
 			//Input port by user
+			@SuppressWarnings("resource")
 			Scanner myInputPort = new Scanner(System.in);
 		    System.out.println("Enter port number");
 		    PORT = myInputPort.nextInt();
@@ -27,25 +28,21 @@ public class mainCodeChallenge {
 			System.out.println("Connected");
 			
 			//Retrieving data from server
-			InputStream is = clientServer.getInputStream();
-            InputStreamReader isr = new InputStreamReader(is);
-            BufferedReader br = new BufferedReader(isr);
-            String message  = br.readLine();
+            InputStreamReader isr = new InputStreamReader(clientServer.getInputStream());
+            String message  = new BufferedReader(isr).readLine();
             
             while(message != null) {
             	System.out.println("Message received from the server : " + message);
             	
             	//Parsing the JSON to get "activation"
                 JsonParser parser = new JsonParser();
-                Object obj = parser.parse(message);
-                JsonObject jsonObj = (JsonObject) obj;
+                JsonObject jsonObj = (JsonObject) parser.parse(message);
                 JsonElement label = jsonObj.get("label");
                 	
                 if(label.toString().equals("\"ACTIVATION\"")) {
                 	
                 	//Sending the message to the server
-                	OutputStream os = clientServer.getOutputStream();
-                	OutputStreamWriter osw = new OutputStreamWriter(os);
+                	OutputStreamWriter osw = new OutputStreamWriter(clientServer.getOutputStream());
                 	BufferedWriter bw = new BufferedWriter(osw);    
                        
                 	bw.write("Activation Classified" + "\n");
