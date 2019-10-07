@@ -2,13 +2,12 @@ package main;
 import java.io.*;
 import java.net.*;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
-
 import com.google.gson.*;
 
 //Pison TCP Classifier Coding Challenge
 public class mainCodeChallenge {
 	
+	static classiffierCodeChallenge classifierCode = new classiffierCodeChallenge();
 	static Socket clientServer;
 	static int PORT = 0;
 	
@@ -17,7 +16,6 @@ public class mainCodeChallenge {
 			
 		try {
 			//Input port by user
-			@SuppressWarnings("resource")
 			Scanner myInputPort = new Scanner(System.in);
 		    System.out.println("Enter port number");
 		    PORT = myInputPort.nextInt();
@@ -28,26 +26,33 @@ public class mainCodeChallenge {
 			System.out.println("Connected");
 			
 			//Retrieving data from server
-            InputStreamReader isr = new InputStreamReader(clientServer.getInputStream());
-            String message  = new BufferedReader(isr).readLine();
+			InputStream is = clientServer.getInputStream();
+            InputStreamReader isr = new InputStreamReader(is);
+            BufferedReader br = new BufferedReader(isr);
             
-            while(message != null) {
+            //Sending the message to the server
+        	OutputStream os = clientServer.getOutputStream();
+        	OutputStreamWriter osw = new OutputStreamWriter(os);
+        	BufferedWriter bw = new BufferedWriter(osw); 
+			
+			int timeStamp = 0;
+        	int data = 0;
+        	String label = "";
+        	
+        	//int[] arrayTimeData = new int[2];
+            
+            while(true) {
+            	//Retrieving data from server
+            	String message = br.readLine();
             	System.out.println("Message received from the server : " + message);
             	
-            	//Parsing the JSON to get "activation"
-                JsonParser parser = new JsonParser();
-                JsonObject jsonObj = (JsonObject) parser.parse(message);
-                JsonElement label = jsonObj.get("label");
-                	
-                if(label.toString().equals("\"ACTIVATION\"")) {
-                	
-                	//Sending the message to the server
-                	OutputStreamWriter osw = new OutputStreamWriter(clientServer.getOutputStream());
-                	BufferedWriter bw = new BufferedWriter(osw);    
-                       
-                	bw.write("Activation Classified" + "\n");
-                	bw.flush();
-                }
+            	//JSON Parser for all fields
+            	JsonParser parser = new JsonParser();
+                Object objParser = parser.parse(message);
+                JsonObject jsonParser = (JsonObject) objParser;
+                
+            	//ClassiffierCodeChallenge Class method
+            	classifierCode.classifier(message, /*arrayTimeData,*/ timeStamp, data, label, jsonParser, bw);
             }
 	
 		}
@@ -67,5 +72,4 @@ public class mainCodeChallenge {
 		}
 	}
 	
-
 }
