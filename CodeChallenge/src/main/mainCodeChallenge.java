@@ -52,7 +52,8 @@ public class mainCodeChallenge {
                 JsonObject jsonParser = (JsonObject) objParser;
                 
             	//ClassiffierCodeChallenge Class method
-            	classifierCode.classifier(message, /*arrayTimeData,*/ timeStamp, data, label, jsonParser, bw);
+                //classifierCode.classifier(message, arrayTimeData, timeStamp, data, label, jsonParser, bw);
+            	classifierCode.classifier(message, data, jsonParser, bw);
             }
 	
 		}
